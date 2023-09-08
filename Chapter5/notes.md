@@ -111,7 +111,6 @@ function reduce(array, combine, start) {
 }
 
 
-
 console.log(reduce([1, 2, 3, 4], (a, b) => a + b, 0));
 // → 10
 ```
