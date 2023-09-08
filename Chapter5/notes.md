@@ -61,7 +61,19 @@ console.log(greaterThan10(11));
 // → true
 ```
 
-Here the variable greaterThan10 is holding the returned function: m => m > n. Because greaterThan10 is the result of the call ```greaterThan(10)```. the returned function is actually this: ```m => m > 10```. Now whenever greaterThan10 is called, it will compare its argument to 10 and return true if it is greater or false if it is not. ```greaterThan10(11) => 11 > 10 => true```
+Here the variable greaterThan10 is holding the returned function: m => m > n. Because greaterThan10 is the result of the call 
+
+```
+greaterThan(10)
+```
+the returned function is actually this: 
+```
+m => m > 10
+```
+Now whenever greaterThan10 is called, it will compare its argument to 10 and return true if it is greater or false if it is not. 
+```
+greaterThan10(11) => 11 > 10 => true
+```
 
 Common examples of higher order functions include the array methods: forEach, map, filter, etc.
 
