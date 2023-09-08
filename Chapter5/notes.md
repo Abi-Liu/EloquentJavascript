@@ -25,11 +25,13 @@ Try to find work or code that you keep repeating and abstract it into its own fu
 ## Higher Order Functions
 
 What if we want to write a helper function that does something "N" times. Well we can write a function with a loop inside like so:
-```function doManyTimes(n){
+```
+function doManyTimes(n){
     for(let i = 0; i< n; i++){
         console.log(i)
     }
-}```
+}
+```
 What if we wanted to do something more complex? This is where higher order functions come into play. Because functions are just values, you can pass in functions as arguments to another function.
 
 Higher order functions can also be functions that return a function as its return value. Here are some examples of each type
