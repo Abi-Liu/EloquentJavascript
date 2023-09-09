@@ -234,3 +234,125 @@ Rabbit.prototype[sym] = 55;
 console.log(blackRabbit[sym]);
 // → 55
 ```
+
+Being both unique and usable as property names makes symbols suitable for defining interfaces that can peacefully live alongside other properties, no matter what their names are.
+
+
+## Iterator Interface
+
+The object given to a for/of loop is expected to be iterable. This means it has a method named with the Symbol.iterator symbol (a symbol value defined by the language, stored as a property of the Symbol function).
+
+When this method is called, it should return another object that provides an `iterator`. This is what actually iterates. It has a `next` method, that returns the next result. The result should be another object with a value property that proviedes the next value, and a done property which is true if there are no more results and false otherwise.
+
+```
+let okIterator = "OK"[Symbol.iterator]();
+console.log(okIterator.next());
+// → {value: "O", done: false}
+console.log(okIterator.next());
+// → {value: "K", done: false}
+console.log(okIterator.next());
+// → {value: undefined, done: true}
+```
+
+## Getters, Setters, and Statics
+
+Interfaces often consist mostly of methods, but it is also okay to include properties that hold non-function values. For example, the .length property for arrays and strings.
+
+Some properties that are accessed directly may even hide a method call, these methods are called `getters` and are defined by writing get infront of the method name.
+
+let varyingSize = {
+  get size() {
+    return Math.floor(Math.random() * 100);
+  }
+};
+
+console.log(varyingSize.size);
+// → 73
+console.log(varyingSize.size);
+// → 49
+
+You can do a similar thing when a property is written to using `setters`
+
+```
+class Temperature {
+  constructor(celsius) {
+    this.celsius = celsius;
+  }
+  get fahrenheit() {
+    return this.celsius * 1.8 + 32;
+  }
+  set fahrenheit(value) {
+    this.celsius = (value - 32) / 1.8;
+  }
+
+  static fromFahrenheit(value) {
+    return new Temperature((value - 32) / 1.8);
+  }
+}
+
+let temp = new Temperature(22);
+console.log(temp.fahrenheit);
+// → 71.6
+temp.fahrenheit = 86;
+console.log(temp.celsius);
+// → 30
+```
+
+Inside a class declaration, methods that have static written before them are stored on the constructor. So the Temperature class allows you to write Temperature.fromFahrenheit(100) to create a temperature using degrees Fahrenheit.
+
+
+## Inheritance
+
+Javascripts prototype system makes it possible to create a new class from an existing class, but with new definitions for some of its properties.
+
+The prototype for the new class derives from the old prototype but adds a new definition for any of the methods or properties.
+
+You can use Inheritance with the extend keyword and super keyword
+
+```
+class Animal {
+  constructor(name, color){
+    this.color = color
+    this.name = size
+  }
+  speak(){
+    console.log(`${this.name} makes a sound`)
+  }
+}
+
+class Cat extends Animal {
+  constructor (name, color, breed){
+    super(name, color) // calls constructor of parent class (Animal)
+    this.breed = breed
+  }
+  //override the speak method
+  speak(){
+    console.log(`${this.name} meows`)
+  }
+
+  // custom method for cats
+  pur(){
+    console.log(`${this.name} purrs`)
+  }
+}
+```
+
+Inheritance allows us to build slightly different data types from existing data types with relatively little work. It is a fundamental part of the object-oriented tradition, alongside encapsulation and polymorphism.
+
+However, encapsulation and polymorphism can be used to separate pieces of code from each other, inheritance ties classes together, creating more tangledness. It shouldn't be the first toll you reach for in OOP
+
+## Instance Of Operator
+
+It can be useful to know whether an object was derived from a specific class. For this, JavaScript provides a binary operator called instanceof.
+
+```
+console.log(
+  new SymmetricMatrix(2) instanceof SymmetricMatrix);
+// → true
+console.log(new SymmetricMatrix(2) instanceof Matrix);
+// → true
+console.log(new Matrix(2, 2) instanceof SymmetricMatrix);
+// → false
+console.log([1] instanceof Array);
+// → true
+```
