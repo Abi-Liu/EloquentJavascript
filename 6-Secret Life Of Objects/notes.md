@@ -339,7 +339,7 @@ class Cat extends Animal {
 
 Inheritance allows us to build slightly different data types from existing data types with relatively little work. It is a fundamental part of the object-oriented tradition, alongside encapsulation and polymorphism.
 
-However, encapsulation and polymorphism can be used to separate pieces of code from each other, inheritance ties classes together, creating more tangledness. It shouldn't be the first toll you reach for in OOP
+However, encapsulation and polymorphism can be used to separate pieces of code from each other, inheritance ties classes together, creating more tangledness. It shouldn't be the first tool you reach for in OOP
 
 ## Instance Of Operator
 
